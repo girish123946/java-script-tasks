@@ -1,0 +1,313 @@
+INTERMEDIATE LEVEL - FUNCTIONS FULL
+ASSIGNMENT
+
+SECTION 1 – Real-Time Function Logic
+
+1. Payroll System:
+Create calculateSalary(basicSalary, bonusPercentage)
+- Calculate bonus
+- Deduct 5% tax
+- Return final salary
+- Print full salary breakdown
+
+code:
+function calculateSalary(basicSalary, bonusPercentage) {
+    let bonus = (basicSalary * bonusPercentage) / 100;
+    let grossSalary = basicSalary + bonus;
+    let tax = grossSalary * 0.05;
+    let finalSalary = grossSalary - tax;
+
+    console.log("Basic Salary:", basicSalary);
+    console.log("Bonus:", bonus);
+    console.log("Tax:", tax);
+    console.log("Final Salary:", finalSalary);
+
+    return finalSalary;
+}
+
+calculateSalary(20000, 10);
+
+
+2. Student Result System:
+Create generateResult(name, marksArray)
+- Calculate total
+- Calculate average
+- Decide Grade (A/B/C/Fail)
+- Return result object
+
+code:
+function generateResult(name, marksArray) {
+    let total = marksArray.reduce((a, b) => a + b, 0);
+    let avg = total / marksArray.length;
+    let grade;
+
+    if (avg >= 80) grade = "A";
+    else if (avg >= 60) grade = "B";
+    else if (avg >= 40) grade = "C";
+    else grade = "Fail";
+
+    return { name, total, avg, grade };
+}
+
+console.log(generateResult("Girish", [80, 70, 90]));
+
+
+SECTION 2 – Scope & Hoisting (Debugging)
+
+3. Debug This Code:
+function demo(){
+if(true){
+var a = 10;
+let b = 20;
+}
+console.log(a);
+console.log(b);
+}
+Questions:
+- What will happen?
+- Why?
+- Fix it properly
+
+fixed code:
+function demo() {
+    if (true) {
+        let a = 10;
+        let b = 20;
+        console.log(a);
+        console.log(b);
+    }
+}
+
+Output
+a = 10
+b = ReferenceError
+
+Why?
+var is function scoped
+let is block scoped
+
+4. Hoisting Analysis:
+console.log(x);
+var x = 100;
+console.log(y);
+let y = 200;
+Predict output and explain.
+
+code:
+console.log(x); 
+var x = 100;
+console.log(y);
+let y = 200;
+
+Output
+undefined
+ReferenceError: Cannot access 'y' before initialization
+
+Explanation
+var is hoisted with value undefined
+let is hoisted but in Temporal Dead Zone (TDZ)
+
+SECTION 3 – Callback & Higher Order (Industry Simulation)
+
+5.Order Processing System:
+Create processOrder(orderId, callback)
+- Print "Order Processed"
+- Call generateInvoice(orderId)
+
+code:
+function generateInvoice(id) {
+    console.log("Invoice generated for:", id);
+}
+
+function processOrder(orderId, callback) {
+    console.log("Order Processed:", orderId);
+    callback(orderId);
+}
+
+processOrder(101, generateInvoice);
+
+6. Bank Transaction System:
+Create transaction(amount, type, callback)
+- If deposit → add
+- If withdraw → subtract
+- Call sendSMS()
+
+let balance = 1000;
+
+function sendSMS() {
+    console.log("SMS Sent: Transaction Completed");
+}
+function transaction(amount, type, callback) {
+    if (type === "deposit") balance += amount;
+    else if (type === "withdraw") balance -= amount;
+
+    console.log("Balance:", balance);
+    callback();
+}
+transaction(500, "deposit", sendSMS);
+
+SECTION 4 – Currying (E-Commerce)
+
+7.Dynamic Price Builder:
+Create priceBuilder(basePrice)(discount)(tax)
+Return final price
+Example: priceBuilder(2000)(15)(18)
+
+function priceBuilder(basePrice) {
+    return function(discount) {
+        return function(tax) {
+            let discounted = basePrice - (basePrice * discount / 100);
+            let finalPrice = discounted + (discounted * tax / 100);
+            return finalPrice;
+        };
+    };
+}
+console.log(priceBuilder(2000)(15)(18));
+
+SECTION 5 – IIFE (Security + Encapsulation)
+
+8.Secure Company Module:
+- Store private variable companyCode
+- Expose getCompanyStatus()
+- companyCode should not be directly accessible
+
+code:
+const companyModule = (function() {
+    let companyCode = "XYZ123";
+
+    return {
+        getCompanyStatus: function() {
+            return "Company Active";
+        }
+    };
+})();
+
+console.log(companyModule.getCompanyStatus());
+
+Explanation
+companyCode is private
+Cannot access outside
+
+SECTION 6 – Generator (Advanced Logic)
+
+9.Unique Order ID Generator:
+Generate ORD1001, ORD1002, ORD1003, etc.
+
+code:
+function generateOrderId() {
+    return "ORD1001";
+}
+console.log(generateOrderId());
+console.log(generateOrderId());
+console.log(generateOrderId());
+
+10. Coupon Spin System:
+Yield:
+- 10% OFF
+- 20% OFF
+- 50% OFF
+- No Luck
+- Jackpot
+Simulate multiple spins.
+
+code:
+function* couponSpin() {
+    yield "10% OFF";
+    yield "20% OFF";
+    yield "50% OFF";
+    yield "No Luck";
+    yield "Jackpot";
+}
+let spin = couponSpin();
+console.log(spin.next().value);
+console.log(spin.next().value);
+
+SECTION 7 – Mini Project (Integrated)
+
+Mini E-Commerce Flow:
+- addToCart(product, price)
+- calculateTotal()
+- applyDiscount() using currying
+- generateCoupon() using generator
+- processPayment() using callback
+- Hide config using IIFE
+
+code:
+let cart = [];
+
+function addToCart(product, price) {
+    cart.push({ product, price });
+}
+
+function calculateTotal() {
+    return cart.reduce((t, p) => t + p.price, 0);
+}
+
+function applyDiscount(total) {
+    return discount => total - (total * discount / 100);
+}
+
+function* generateCoupon() {
+    yield "10%";
+    yield "20%";
+}
+
+function processPayment(callback) {
+    console.log("Payment Processing...");
+    callback();
+}
+
+const config = (function() {
+    let secretKey = "12345";
+    return {};
+})();
+
+// Example
+addToCart("Phone", 10000);
+let total = calculateTotal();
+let final = applyDiscount(total)(10);
+processPayment(() => console.log("Payment Success"));
+
+Concept Questions:
+
+1.Difference between function declaration & expression?
+
+Answer:
+Function Declaration:
+A function declaration is defined using the function keyword with a function name. It is hoisted, which means it can be called before it is defined in the program.
+
+Function Expression:
+A function expression is stored inside a variable. It is not hoisted, so it must be defined before calling it.
+
+2. What is higher order function?
+
+Answer:
+A higher order function is a function that takes another function as an argument or returns a function as a result.
+It is used in real-time programming for callbacks, event handling, and array methods like map and filter.
+
+3. Real-time example of generator?
+
+Answer:
+Generators are used to produce multiple values one by one without stopping the program execution.
+They are commonly used in applications like generating order IDs, coupon codes, and pagination systems.
+
+4. Why do we use IIFE?
+
+Answer:
+IIFE is used to execute a function immediately and to create private variables that cannot be accessed from outside.
+It helps in improving security and avoiding global variable conflicts in large applications.
+
+5. Difference between var, let, const?
+
+Answer:
+Feature	   var	         let	    const
+Scope	  Function	    Block	    Block
+Redeclare	Yes	        No	         No
+Reassign	Yes	        Yes	         No
+
+
+
+
+
+
+
