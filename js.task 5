@@ -1,0 +1,176 @@
+TASK 1 – Employee Merge System (Spread Operator)
+
+You have:
+let empBasic = { name: "Naveen", role: "Trainee", salary: 20000 }
+let empPromotion = { role: "Developer", bonus: 10000 }
+Requirements:
+1. Merge both objects using spread.
+2. Update salary to 40000.
+3. Add new property: experience: "2 years"
+4. Print final employee object.
+
+code:
+let empBasic = { name: "Naveen", role: "Trainee", salary: 20000 }
+let empPromotion = { role: "Developer", bonus: 10000 }
+let employee = {
+  ...empBasic,
+  ...empPromotion,
+  salary: 40000,
+  experience: "2 years"
+}
+console.log(employee);
+
+TASK 2 – Shopping Cart (Spread + Array)
+
+let cart1 = ["Shoes", "Shirt"]
+let cart2 = ["Watch", "Cap"]
+Requirements:
+1. Merge both carts.
+2. Add "Bag" at the end.
+3. Add "Socks" at the beginning.
+4. Print final cart.
+
+code:
+let cart1 = ["Shoes", "Shirt"]
+let cart2 = ["Watch", "Cap"]
+let finalCart = ["Socks", ...cart1, ...cart2, "Bag"]
+console.log(finalCart);
+
+TASK 3 – Rest Operator Salary Calculator
+
+Create function:
+calculateTotalSalary(baseSalary, ...bonuses)
+Requirements:
+1. Add all bonus values.
+2. Return total salary.
+3. Example:
+calculateTotalSalary(30000, 2000, 3000, 5000)
+Expected Output: Total Salary: 40000
+
+code:
+function calculateTotalSalary(baseSalary, ...bonuses) {
+  let totalBonus = bonuses.reduce((sum, b) => sum + b, 0);
+  return baseSalary + totalBonus;
+}
+console.log("Total Salary:", calculateTotalSalary(30000, 2000, 3000, 5000));
+
+TASK 4 – Advanced Destructuring
+
+let student = {
+name: "Rahul",
+marks: { maths: 90, science: 85, english: 88 }
+}
+Requirements:
+1. Destructure name
+2. Destructure maths and science.
+3. Print:
+Rahul scored 90 in maths and 85 in science
+
+code:
+let student = {
+  name: "Rahul",
+  marks: { maths: 90, science: 85, english: 88 }
+};
+let { name } = student;
+let { maths, science } = student.marks;
+console.log(`${name} scored ${maths} in maths and ${science} in science`);
+
+TASK 5 – Array Manipulation
+
+let numbers = [10,20,30,40,50]
+Requirements:
+1. Remove 30 using splice.
+2. Add 25 in its place.
+3. Reverse array.
+4. Check if 50 exists.
+5. Print final array.
+
+code:
+let numbers = [10, 20, 30, 40, 50];
+
+// Remove 30 and add 25
+numbers.splice(2, 1, 25);
+
+// Reverse array
+numbers.reverse();
+
+// Check if 50 exists
+console.log(numbers.includes(50));
+
+// Print final array
+console.log(numbers);
+
+TASK 6 – Flatten Data
+
+let apiData = [1,2,[3,4,[5,6,[7,8]]]]
+Requirements:
+1. Convert into single array.
+2. Print output.
+3. Find index of 6.
+
+code:
+let apiData = [1, 2, [3, 4, [5, 6, [7, 8]]]];
+
+let flatArray = apiData.flat(Infinity);
+
+console.log(flatArray);
+console.log("Index of 6:", flatArray.indexOf(6));
+
+ouput:
+[1,2,3,4,5,6,7,8]
+Index of 6: 5
+
+TASK 7 – Sorting Problem
+
+let prices = [100, 5, 25, 300, 45]
+Requirements:
+1. Sort in ascending order properly.
+2. Sort in descending order properly.
+(Note: Use compare function)
+
+code:
+let prices = [100, 5, 25, 300, 45];
+let assending = prices.slice().sort((a, b) => a - b);
+let descending = prices.slice().sort((a, b) => b - a);
+console.log("Assending:", assending);
+console.log("Descending:", descending);
+
+BONUS HARD TASK – Team Level
+
+let users = [
+{name: "A", salary: 20000},
+{name: "B", salary: 40000},
+{name: "C", salary: 30000}
+]
+Requirements:
+1. Increase everyone salary by 5000 using spread.
+2. Return new updated array.
+3. Sort based on salary (high to low)
+
+code:
+
+let users = [
+  { name: "A", salary: 20000 },
+  { name: "B", salary: 40000 },
+  { name: "C", salary: 30000 }
+];
+
+// Step 1: Increase everyone salary by 5000 using spread operator
+let updatedUsers = users.map(function(user) {
+  return {
+    ...user,                  // copy all properties of user
+    salary: user.salary + 5000 // increase salary by 5000
+  };
+});
+
+// Step 2: Sort users based on salary (high to low)
+updatedUsers.sort(function(a, b) {
+  return b.salary - a.salary;  // descending order
+});
+
+// Step 3: Print final updated array
+console.log(updatedUsers);
+
+
+
+
